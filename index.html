@@ -1,0 +1,2529 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>최범수 - iOS Developer Portfolio</title>
+<style>
+  :root {
+    --ink: #12161c;
+    --text: #27313d;
+    --muted: #66717f;
+    --subtle: #8a94a3;
+    --line: #d8dee7;
+    --paper: #ffffff;
+    --canvas: #f3f5f8;
+    --soft: #f8fafc;
+    --blue: #174d7c;
+    --teal: #006d77;
+    --green: #3f7a4c;
+    --amber: #986700;
+    --rust: #a44d3f;
+    --code: #15202b;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 78px;
+  }
+
+  body {
+    min-width: 900px;
+    margin: 0;
+    color: var(--text);
+    background: var(--canvas);
+    font-family: "Apple SD Gothic Neo", "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a {
+    color: var(--blue);
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+
+  .site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    border-bottom: 1px solid rgba(216, 222, 231, 0.9);
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(12px);
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 900px;
+    margin: 0 auto;
+    min-height: 58px;
+    gap: 18px;
+  }
+
+  .brand {
+    color: var(--ink);
+    font-size: 14px;
+    font-weight: 900;
+    white-space: nowrap;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+  }
+
+  .section {
+    scroll-margin-top: 78px;
+    width: 900px;
+    margin: 0 auto;
+    padding: 78px 0;
+  }
+
+  .section.compact {
+    padding-top: 38px;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 240px 620px;
+    align-items: center;
+    gap: 40px;
+    min-height: calc(100vh - 58px);
+    padding-top: 44px;
+    padding-bottom: 44px;
+  }
+
+  .eyebrow {
+    margin: 0 0 16px;
+    color: var(--teal);
+    font-size: 13px;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  h1,
+  h2,
+  h3 {
+    margin: 0;
+    color: var(--ink);
+    line-height: 1.22;
+    letter-spacing: 0;
+  }
+
+  h1 {
+    max-width: 720px;
+    font-size: clamp(32px, 4.2vw, 52px);
+    font-weight: 950;
+  }
+
+  h2 {
+    font-size: clamp(30px, 4vw, 46px);
+    font-weight: 940;
+  }
+
+  h3 {
+    font-size: 22px;
+    font-weight: 900;
+  }
+
+  .hero-intro {
+    display: grid;
+    align-content: center;
+    gap: 22px;
+    width: 620px;
+    min-width: 0;
+  }
+
+  .hero-intro-head p {
+    max-width: 620px;
+    margin: 0;
+    color: var(--muted);
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  .skill-stack-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .skill-group {
+    display: grid;
+    gap: 12px;
+    min-width: 0;
+    padding: 16px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--paper);
+  }
+
+  .skill-group b {
+    color: var(--ink);
+    font-size: 15px;
+    font-weight: 900;
+  }
+
+  .skill-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .skill-chips span {
+    display: inline-flex;
+    align-items: center;
+    height: 20px;
+    padding: 0 7px;
+    border-radius: 999px;
+    background: #edf5f1;
+    color: var(--text);
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 4px;
+  }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 0 16px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 14px;
+    font-weight: 900;
+    white-space: nowrap;
+  }
+
+  .button.primary {
+    border-color: var(--ink);
+    background: var(--ink);
+    color: #fff;
+  }
+
+  .profile-panel {
+    max-width: 240px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--paper);
+    overflow: hidden;
+  }
+
+  .profile-panel img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+
+  .profile-body {
+    display: grid;
+    gap: 6px;
+    padding: 14px;
+  }
+
+  .profile-body b {
+    color: var(--ink);
+    font-size: 17px;
+  }
+
+  .profile-body span {
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .profile-contact {
+    display: grid;
+    gap: 6px;
+    margin: 4px 0 0;
+    padding-top: 9px;
+    border-top: 1px solid var(--line);
+  }
+
+  .profile-contact-row {
+    display: grid;
+    grid-template-columns: 64px minmax(0, 1fr);
+    gap: 10px;
+    align-items: baseline;
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .profile-contact-row dt {
+    color: var(--subtle);
+    font-weight: 900;
+  }
+
+  .profile-contact-row dd {
+    min-width: 0;
+    margin: 0;
+    color: var(--ink);
+    font-weight: 850;
+    overflow-wrap: anywhere;
+  }
+
+  .profile-contact-row a {
+    color: inherit;
+  }
+
+  .project-panel,
+  .problem-item,
+  .case-block {
+    scroll-margin-top: 78px;
+    min-width: 0;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--paper);
+  }
+
+  .section-head {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(280px, 0.55fr);
+    gap: 28px;
+    align-items: end;
+    margin-bottom: 24px;
+  }
+
+  .section-head:has(> :only-child) {
+    grid-template-columns: 1fr;
+  }
+
+  .section-head p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 16px;
+  }
+
+  .project-overview {
+    display: grid;
+    gap: 18px;
+  }
+
+  .project-panel {
+    display: grid;
+    gap: 18px;
+    padding: 22px;
+  }
+
+  .project-panel-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+  }
+
+  .project-panel-header div {
+    min-width: 0;
+  }
+
+  .project-panel-header b {
+    display: block;
+    color: var(--ink);
+    font-size: 24px;
+    line-height: 1.25;
+  }
+
+  .project-panel-header span {
+    display: block;
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 850;
+  }
+
+  .project-summary {
+    margin: 0;
+    color: var(--muted);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .project-app-intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 486px;
+    gap: 22px;
+    align-items: start;
+    padding: 18px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fbfcfd;
+  }
+
+  .project-app-copy {
+    display: grid;
+    gap: 10px;
+    align-content: start;
+    min-width: 0;
+  }
+
+  .project-app-copy b {
+    color: var(--ink);
+    font-size: 16px;
+    font-weight: 950;
+  }
+
+  .project-app-copy p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .project-app-copy ul {
+    display: grid;
+    gap: 7px;
+    margin: 4px 0 0;
+    padding-left: 18px;
+    color: var(--text);
+    font-size: 13px;
+    line-height: 1.45;
+  }
+
+  .project-screens {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    min-width: 0;
+  }
+
+  .screen-frame {
+    flex: 0 0 auto;
+    width: 146px;
+    height: 316px;
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid #cbd5e1;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.1);
+  }
+
+  .screen-frame img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .project-architecture {
+    display: grid;
+    gap: 10px;
+    padding: 16px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #f8fbff;
+  }
+
+  .project-architecture b {
+    color: var(--ink);
+    font-size: 13px;
+    font-weight: 950;
+  }
+
+  .architecture-flow {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 20px;
+    align-items: center;
+  }
+
+  .architecture-flow.four {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .architecture-step {
+    position: relative;
+    min-height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: var(--paper);
+    color: var(--text);
+    font-size: 12px;
+    font-weight: 900;
+    text-align: center;
+  }
+
+  .architecture-step + .architecture-step::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -20px;
+    width: 20px;
+    height: 0;
+    border-top: 1px solid #9aa8ba;
+  }
+
+  .architecture-step + .architecture-step::after {
+    content: "";
+    position: absolute;
+    top: calc(50% - 4px);
+    left: -6px;
+    width: 0;
+    height: 0;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    border-left: 6px solid #9aa8ba;
+  }
+
+  .architecture-step.focus {
+    border-color: rgba(12, 91, 166, .32);
+    background: rgba(12, 91, 166, .08);
+    color: #075985;
+  }
+
+  .project-facts {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+  }
+
+  .project-facts b {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--ink);
+    font-size: 13px;
+    font-weight: 950;
+  }
+
+  .project-facts p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .project-case-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-top: 2px;
+  }
+
+  .project-case-links a {
+    color: var(--text);
+  }
+
+  .project-resource-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0 16px;
+  }
+
+  .project-resource-links a {
+    color: var(--text);
+  }
+
+  .problem-menu {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .problem-column {
+    display: grid;
+    align-content: start;
+    gap: 12px;
+    min-width: 0;
+  }
+
+  .problem-project-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+    padding: 0 2px 4px;
+  }
+
+  .app-icon {
+    flex: 0 0 auto;
+    width: 64px;
+    height: 64px;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 1px solid rgba(18, 22, 28, 0.12);
+  }
+
+  .problem-project-head div {
+    min-width: 0;
+  }
+
+  .problem-project-head b {
+    display: block;
+    color: var(--ink);
+    font-size: 19px;
+    line-height: 1.3;
+  }
+
+  .problem-project-head span {
+    display: block;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  .problem-list {
+    display: grid;
+    gap: 10px;
+  }
+
+  .problem-item {
+    display: grid;
+    gap: 8px;
+    min-height: 154px;
+    padding: 16px;
+    color: var(--text);
+    transition: border-color 0.18s ease, transform 0.18s ease, background 0.18s ease;
+  }
+
+  .problem-item:hover {
+    border-color: rgba(0, 109, 119, 0.45);
+    background: #f8fefe;
+    text-decoration: none;
+    transform: translateY(-2px);
+  }
+
+  .case-number {
+    color: var(--rust);
+    font-size: 12px;
+    font-weight: 950;
+    letter-spacing: 0;
+  }
+
+  .problem-item b {
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.35;
+  }
+
+  .problem-item em {
+    margin: 0;
+    color: var(--muted);
+    font-size: 13px;
+    font-style: normal;
+    line-height: 1.55;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    min-height: 28px;
+    padding: 0 9px;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    background: #fff;
+    color: var(--text);
+    font-size: 12px;
+    font-weight: 850;
+  }
+
+  .tag.hot {
+    border-color: rgba(0, 109, 119, 0.35);
+    color: var(--teal);
+    background: #eefafa;
+  }
+
+  .case-stack {
+    display: grid;
+    gap: 18px;
+    min-width: 0;
+  }
+
+  .case-block {
+    padding: 24px;
+  }
+
+  .case-title-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+    align-items: start;
+    margin-bottom: 18px;
+  }
+
+  .case-kicker {
+    margin: 0 0 8px;
+    color: var(--rust);
+    font-size: 12px;
+    font-weight: 950;
+    text-transform: uppercase;
+  }
+
+  .case-schema {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 18px;
+  }
+
+  .schema-cell {
+    min-width: 0;
+    min-height: 148px;
+    padding: 16px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--paper);
+  }
+
+  .schema-cell.full {
+    grid-column: 1 / -1;
+  }
+
+  .schema-cell b {
+    display: block;
+    margin-bottom: 7px;
+    color: var(--ink);
+    font-size: 15px;
+  }
+
+  .schema-cell p,
+  .schema-cell ul {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .schema-cell code {
+    color: var(--text);
+    font-family: "SFMono-Regular", "Menlo", "Consolas", monospace;
+    font-size: 12px;
+    font-weight: 750;
+  }
+
+  .schema-cell ul {
+    padding-left: 18px;
+  }
+
+  .diagram {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .diagram-node {
+    min-height: 72px;
+    padding: 13px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--soft);
+    color: var(--ink);
+    font-size: 13px;
+    font-weight: 850;
+  }
+
+  .diagram-node.good {
+    border-color: rgba(63, 122, 76, 0.35);
+    background: #f1f8f1;
+  }
+
+  .dependency-map {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 28px minmax(0, 1fr) 28px minmax(0, 1fr);
+    gap: 10px;
+    align-items: stretch;
+    margin-top: 16px;
+    padding: 16px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #f8fbff;
+  }
+
+  .dependency-node {
+    min-height: 122px;
+    display: grid;
+    align-content: start;
+    gap: 8px;
+    padding: 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: var(--paper);
+  }
+
+  .dependency-node span {
+    color: var(--subtle);
+    font-size: 12px;
+    font-weight: 950;
+    text-transform: uppercase;
+  }
+
+  .dependency-node b {
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.35;
+  }
+
+  .dependency-node em {
+    color: var(--muted);
+    font-size: 13px;
+    font-style: normal;
+    line-height: 1.5;
+  }
+
+  .dependency-node.domain {
+    border-color: rgba(63, 122, 76, .35);
+    background: #f1f8f1;
+  }
+
+  .dependency-node.clients {
+    border-color: rgba(183, 55, 47, .25);
+    background: #fff8f6;
+  }
+
+  .dependency-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #7c8b9d;
+    font-size: 26px;
+    font-weight: 900;
+  }
+
+  .dependency-result {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-top: 4px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .dependency-result b {
+    color: var(--teal);
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .sequence-diagram {
+    margin-top: 16px;
+    padding: 16px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #f8fbff;
+  }
+
+  .sequence-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .sequence-svg text {
+    font-family: inherit;
+  }
+
+  .sequence-participant-box {
+    fill: var(--paper);
+    stroke: #cbd5e1;
+    stroke-width: 1;
+  }
+
+  .sequence-participant-text {
+    fill: var(--ink);
+    font-size: 13px;
+    font-weight: 950;
+  }
+
+  .sequence-lifeline {
+    stroke: #b7c4d4;
+    stroke-width: 1;
+    stroke-dasharray: 5 6;
+  }
+
+  .sequence-divider {
+    stroke: #cbd5e1;
+    stroke-width: 1;
+    stroke-dasharray: 5 6;
+  }
+
+  .sequence-arrow-line {
+    fill: none;
+    stroke: #64748b;
+    stroke-width: 1.6;
+  }
+
+  .sequence-label-bg {
+    fill: #f8fbff;
+    stroke: #b6c6dc;
+    stroke-width: 1;
+  }
+
+  .sequence-note-bg {
+    fill: #f1f8f1;
+    stroke: #aac7b0;
+    stroke-width: 1;
+  }
+
+  .sequence-label-text,
+  .sequence-note-text {
+    fill: var(--ink);
+    font-size: 13px;
+    font-weight: 850;
+  }
+
+  .sequence-section-text {
+    fill: var(--subtle);
+    font-size: 12px;
+    font-weight: 950;
+    text-transform: uppercase;
+  }
+
+  .sequence-result {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-top: 2px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .sequence-result b {
+    color: var(--teal);
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .code {
+    overflow-x: auto;
+    max-width: 100%;
+    margin-top: 16px;
+    padding: 16px;
+    border-radius: 8px;
+    background: var(--code);
+    color: #d9e5ef;
+    font-family: "SFMono-Regular", "Menlo", "Consolas", monospace;
+    font-size: 12px;
+    line-height: 1.6;
+    white-space: pre;
+  }
+
+  .code-evidence {
+    margin-top: 16px;
+    padding: 16px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fff;
+  }
+
+  .code-evidence-head {
+    display: grid;
+    gap: 5px;
+    margin-bottom: 12px;
+  }
+
+  .code-evidence-head span {
+    color: var(--subtle);
+    font-size: 12px;
+    font-weight: 950;
+    text-transform: uppercase;
+  }
+
+  .code-evidence-head b {
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.4;
+  }
+
+  .code-example-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    min-width: 0;
+  }
+
+  .code-example-card {
+    min-width: 0;
+  }
+
+  .code-example-card p {
+    margin: 0 0 8px;
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 900;
+  }
+
+  .code.compact {
+    overflow-x: hidden;
+    margin-top: 0;
+    padding: 14px;
+    border: 1px solid #d8dee9;
+    background: #fbfbfd;
+    color: #1f2328;
+    font-size: 11px;
+    line-height: 1.55;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  .code.compact code {
+    display: block;
+  }
+
+  .x-keyword {
+    color: #9b2393;
+  }
+
+  .x-type {
+    color: #0f6c8d;
+  }
+
+  .x-func {
+    color: #326d9c;
+  }
+
+  .x-prop {
+    color: #5b3f9b;
+  }
+
+  .x-value {
+    color: #6f42c1;
+  }
+
+  .x-comment {
+    color: #6a737d;
+  }
+
+  .two-column {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    min-width: 0;
+  }
+
+  .case-block h3,
+  .profile-contact,
+  .project-panel,
+  .problem-item,
+  .skill-group,
+  .schema-cell,
+  .diagram-node,
+  .code {
+    overflow-wrap: anywhere;
+  }
+
+  .footer {
+    padding: 32px 0 56px;
+    color: var(--subtle);
+    text-align: center;
+    font-size: 13px;
+  }
+
+  @media print {
+    body {
+      background: #fff;
+    }
+
+    .site-nav,
+    .hero-actions {
+      display: none;
+    }
+
+    .section {
+      width: 100%;
+      padding: 32px 0;
+      break-inside: avoid;
+    }
+
+    .case-block,
+    .project-panel {
+      break-inside: avoid;
+      box-shadow: none;
+    }
+  }
+</style>
+</head>
+<body>
+  <nav class="site-nav" aria-label="주요 섹션">
+    <div class="nav-inner">
+      <a class="brand" href="#hero">최범수 · iOS Developer</a>
+      <div class="nav-links">
+        <a href="#projects">프로젝트</a>
+        <a href="#problem-cases">문제 해결</a>
+        <a href="#myiapp">마이 아이</a>
+        <a href="#chagok">차곡</a>
+        <a href="#ios01-hmm">개발자 키우기</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="section hero" id="hero">
+      <aside class="profile-panel" aria-label="프로필 요약">
+        <img src="IMG_9963.PNG" alt="최범수 프로필 사진" />
+        <div class="profile-body">
+          <b>최범수</b>
+          <span>iOS Developer</span>
+          <span>멋쟁이사자처럼 앱/iOS 스쿨 수료</span>
+          <span>네이버 부스트캠프 웹·모바일 10기 수료</span>
+          <dl class="profile-contact" id="contact" aria-label="연락 및 제출 자료">
+            <div class="profile-contact-row">
+              <dt>Email</dt>
+              <dd><a href="mailto:qjatn0545@naver.com">qjatn0545@naver.com</a></dd>
+            </div>
+            <div class="profile-contact-row">
+              <dt>GitHub</dt>
+              <dd><a href="https://github.com/Tom-BumSuChoi">Tom-BumSuChoi</a></dd>
+            </div>
+            <div class="profile-contact-row">
+              <dt>Phone</dt>
+              <dd><a href="tel:010-2026-0545">010-2026-0545</a></dd>
+            </div>
+          </dl>
+        </div>
+      </aside>
+
+      <div class="hero-intro" aria-label="기술 스택 중심 소개">
+        <p class="eyebrow">iOS Developer Portfolio</p>
+        <div class="hero-intro-head">
+          <p>
+            SwiftUI와 UIKit으로 사용자 화면을 만들고, Tuist·TCA·Clean Architecture로 기능 경계를 나눴습니다.
+            Firebase, CoreData, XCTest, GitHub Actions를 사용해 실제 앱의 데이터 흐름과 품질 문제를 다뤘습니다.
+          </p>
+        </div>
+        <div class="skill-stack-grid" aria-label="주요 기술 스택">
+          <article class="skill-group">
+            <b>UI</b>
+            <div class="skill-chips">
+              <span>SwiftUI</span>
+              <span>UIKit</span>
+              <span>SpriteKit</span>
+            </div>
+          </article>
+          <article class="skill-group">
+            <b>Architecture</b>
+            <div class="skill-chips">
+              <span>Tuist</span>
+	              <span>TCA</span>
+	              <span>Clean Architecture</span>
+	              <span>DI</span>
+	            </div>
+	          </article>
+          <article class="skill-group">
+            <b>Data &amp; Platform</b>
+            <div class="skill-chips">
+              <span>Firebase</span>
+              <span>CoreData</span>
+              <span>Core ML</span>
+              <span>Speech Framework</span>
+              <span>Whisper</span>
+            </div>
+          </article>
+          <article class="skill-group">
+            <b>Quality</b>
+            <div class="skill-chips">
+              <span>XCTest</span>
+              <span>Crashlytics</span>
+              <span>GitHub Actions</span>
+            </div>
+          </article>
+        </div>
+        <div class="hero-actions">
+          <a class="button primary" href="#projects">프로젝트 소개 보기</a>
+          <a class="button" href="#problem-cases">문제 해결 사례</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="projects">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Projects</p>
+          <h2>iOS 프로젝트</h2>
+        </div>
+      </div>
+
+      <div class="project-overview" aria-label="프로젝트 소개">
+        <article class="project-panel" id="project-myiapp">
+          <div class="project-panel-header">
+            <img class="app-icon" src="assets/myiapp-icon.png" alt="마이 아이 아이콘" />
+            <div>
+              <b>마이 아이</b>
+              <span>아기 울음 분석과 육아 기록을 가족이 함께 관리하는 앱</span>
+            </div>
+          </div>
+          <p class="project-summary">
+            Core ML 기반 울음 분석, 수유/수면/배변 등 15가지 육아 기록, 보호자 가족 공유를 제공하는 iOS 앱입니다.<br />
+            홈 화면과 타임라인을 만들고, Firebase 저장/조회 흐름과 가족 공유 권한 처리를 함께 다뤘습니다. 출시 뒤에는 새 기록을 추가하거나 화면을 고칠 때 영향 범위가 작아지도록 리팩토링했습니다.
+          </p>
+          <div class="project-resource-links" aria-label="마이 아이 프로젝트 링크">
+            <a class="tag" href="https://github.com/APP-iOS7/MyiApp">GitHub</a>
+            <a class="tag" href="https://apps.apple.com/kr/app/%EB%A7%88%EC%9D%B4-%EC%95%84%EC%9D%B4/id6746396797">App Store</a>
+          </div>
+          <div class="project-app-intro" aria-label="마이 아이 앱 화면 소개">
+            <div class="project-app-copy">
+              <b>앱 화면</b>
+              <p>홈에서 육아 기록을 입력하고, 울음 분석과 기록 분석 화면에서 데이터를 확인합니다.</p>
+              <ul>
+                <li>홈: 아기 정보와 빠른 기록</li>
+                <li>울음 분석: 감정 비율과 주요 원인 확인</li>
+                <li>기록 분석: 일/주 단위 육아 패턴 확인</li>
+              </ul>
+            </div>
+            <div class="project-screens">
+              <figure class="screen-frame">
+                <img src="assets/myiapp-screen-home.png" alt="마이 아이 홈 화면 스크린샷" />
+              </figure>
+              <figure class="screen-frame">
+                <img src="assets/myiapp-screen-cry-result.png" alt="마이 아이 울음 분석 결과 화면 스크린샷" />
+              </figure>
+              <figure class="screen-frame">
+                <img src="assets/myiapp-screen-record-analysis.png" alt="마이 아이 기록 분석 화면 스크린샷" />
+              </figure>
+            </div>
+          </div>
+          <div class="project-architecture" aria-label="마이 아이 아키텍처 구성">
+            <b>Architecture</b>
+            <div class="architecture-flow">
+              <span class="architecture-step focus">App Target</span>
+              <span class="architecture-step">Features / TCA</span>
+              <span class="architecture-step">Domain</span>
+              <span class="architecture-step">Clients</span>
+              <span class="architecture-step">Firebase · Core ML</span>
+            </div>
+          </div>
+          <div class="project-facts">
+            <div>
+              <b>나의 역할</b>
+              <p>홈 UI/UX<br />타임라인 컴포넌트<br />Firebase 동기화<br />가족 공유 권한 흐름<br />출시 후 리팩토링</p>
+            </div>
+            <div>
+              <b>기술 스택</b>
+              <p>SwiftUI<br />TCA<br />Tuist<br />Firebase<br />Core ML<br />Crashlytics</p>
+            </div>
+            <div>
+              <b>성과</b>
+              <p>App Store 출시, 단일 타깃을 Domain/Clients/Features 중심 구조로 재편</p>
+            </div>
+            <div>
+              <b>주요 개선</b>
+              <p>출시 앱의 구조 확장성<br />이미지 로딩 품질<br />가족 공유 데이터 정합성</p>
+            </div>
+          </div>
+          <div class="project-case-links" aria-label="마이 아이 문제 해결 사례">
+            <a class="tag" href="#myiapp-architecture">MY-01 구조 재정리</a>
+            <a class="tag" href="#myiapp-cache">MY-02 이미지 캐시</a>
+            <a class="tag" href="#myiapp-caregiver">MY-03 가족 공유 정합성</a>
+          </div>
+        </article>
+
+        <article class="project-panel" id="project-chagok">
+          <div class="project-panel-header">
+            <img class="app-icon" src="assets/chagok-icon.png" alt="차곡 아이콘" />
+            <div>
+              <b>차곡</b>
+              <span>녹음, STT, 온디바이스 요약을 다루는 AI 음성 메모 앱</span>
+            </div>
+          </div>
+	          <p class="project-summary">
+	            음성 녹음에서 STT, Whisper, 요약, 폴더 관리까지 이어지는 파이프라인을 Clean Architecture와 Swift 6 동시성으로 구성한 프로젝트입니다.<br />
+	            Domain/Data/Presentation 경계 정리, Repository 설계, STT 동시성 문제, 분석 취소·이탈 상태 정리에 집중했습니다.
+          </p>
+          <div class="project-resource-links" aria-label="차곡 프로젝트 링크">
+            <a class="tag" href="https://github.com/Cha-Gok/iOS">GitHub</a>
+            <a class="tag" href="https://github.com/Cha-Gok/iOS/wiki">Wiki</a>
+          </div>
+          <div class="project-app-intro" aria-label="차곡 앱 화면 소개">
+            <div class="project-app-copy">
+              <b>앱 화면</b>
+              <p>녹음 파일이 STT와 요약을 거쳐 폴더 안의 메모로 정리되는 흐름입니다.</p>
+              <ul>
+                <li>목록: 최근 기록과 폴더별 녹음 관리</li>
+                <li>요약: 핵심 포인트와 키워드 확인</li>
+                <li>스크립트: 시간대별 전사 결과 확인</li>
+              </ul>
+            </div>
+            <div class="project-screens">
+              <figure class="screen-frame">
+                <img src="assets/chagok-screen-list.png" alt="차곡 녹음 목록 화면 스크린샷" />
+              </figure>
+              <figure class="screen-frame">
+                <img src="assets/chagok-screen-summary.png" alt="차곡 요약 화면 스크린샷" />
+              </figure>
+              <figure class="screen-frame">
+                <img src="assets/chagok-screen-script.png" alt="차곡 스크립트 화면 스크린샷" />
+              </figure>
+            </div>
+          </div>
+          <div class="project-architecture" aria-label="차곡 아키텍처 구성">
+            <b>Architecture</b>
+            <div class="architecture-flow">
+              <span class="architecture-step focus">Presentation</span>
+              <span class="architecture-step">Domain</span>
+              <span class="architecture-step">Data</span>
+              <span class="architecture-step">Services</span>
+              <span class="architecture-step">STT · Whisper · CoreData</span>
+            </div>
+          </div>
+          <div class="project-facts">
+            <div>
+              <b>나의 역할</b>
+              <p>아키텍처 개선<br />Swift 6 동시성 설계<br />STT/요약 파이프라인 안정화<br />ADR 기반 의사결정</p>
+            </div>
+            <div>
+              <b>기술 스택</b>
+              <p>UIKit<br />Tuist<br />Clean Architecture<br />Swift 6<br />CoreData<br />Speech Framework<br />Whisper</p>
+            </div>
+            <div>
+              <b>성과</b>
+              <p>5개 모듈 구조, Domain 테스트 39개 이상, Repository/Service 역할 기준 정리</p>
+            </div>
+	            <div>
+	              <b>주요 개선</b>
+	              <p>외부 자원 점유 순서<br />분석 취소·이탈 상태 정리</p>
+	            </div>
+	          </div>
+	          <div class="project-case-links" aria-label="차곡 문제 해결 사례">
+	            <a class="tag" href="#chagok-stt">CG-01 STT 큐잉</a>
+	            <a class="tag" href="#chagok-service">CG-02 분석 상태 정리</a>
+	          </div>
+        </article>
+
+        <article class="project-panel" id="project-hmm">
+          <div class="project-panel-header">
+            <img class="app-icon" src="assets/ios01-hmm-icon.png" alt="개발자 키우기 아이콘" />
+            <div>
+              <b>개발자 키우기</b>
+              <span>SpriteKit과 CoreMotion을 활용한 iOS 개발자 성장 시뮬레이션 게임</span>
+            </div>
+          </div>
+          <p class="project-summary">
+            미니게임으로 재화를 벌고 장비, 스킬, 미션을 성장시키는 게임 프로젝트입니다.<br />
+            데이터 쌓기 미니게임, 미션/기록 시스템, 앱 생명주기 저장/복원, 사운드/햅틱 피드백 흐름에 참여했습니다.
+          </p>
+          <div class="project-resource-links" aria-label="개발자 키우기 프로젝트 링크">
+            <a class="tag" href="https://github.com/boostcampwm2025/iOS01-Hmm">GitHub</a>
+            <a class="tag" href="https://apps.apple.com/kr/app/%EA%B0%9C%EB%B0%9C%EC%9E%90-%ED%82%A4%EC%9A%B0%EA%B8%B0/id6758282441">App Store</a>
+          </div>
+          <div class="project-app-intro" aria-label="개발자 키우기 앱 화면 소개">
+            <div class="project-app-copy">
+              <b>앱 화면</b>
+              <p>미션, 퀴즈, 미니게임 결과가 재화와 성장 상태로 연결되는 구조입니다.</p>
+              <ul>
+                <li>미션: 플레이 기록 기반 목표와 보상</li>
+                <li>퀴즈: 정답 처리와 보상 획득</li>
+                <li>미니게임: 탭 기반 재화 획득</li>
+              </ul>
+            </div>
+            <div class="project-screens">
+              <figure class="screen-frame">
+                <img src="assets/devgrow-screen-mission.png" alt="개발자 키우기 미션 화면 스크린샷" />
+              </figure>
+              <figure class="screen-frame">
+                <img src="assets/devgrow-screen-quiz.png" alt="개발자 키우기 퀴즈 보상 화면 스크린샷" />
+              </figure>
+              <figure class="screen-frame">
+                <img src="assets/devgrow-screen-minigame.png" alt="개발자 키우기 미니게임 화면 스크린샷" />
+              </figure>
+            </div>
+          </div>
+          <div class="project-architecture" aria-label="개발자 키우기 아키텍처 구성">
+            <b>Architecture</b>
+            <div class="architecture-flow four">
+              <span class="architecture-step focus">SwiftUI State</span>
+              <span class="architecture-step">Game Feature</span>
+              <span class="architecture-step">SpriteKit Scene</span>
+              <span class="architecture-step">Record / Mission Store</span>
+            </div>
+          </div>
+          <div class="project-facts">
+            <div>
+              <b>나의 역할</b>
+              <p>StackGame 구현<br />MissionFactory와 Record 흐름 설계<br />저장/복원 경계 정리<br />피드백 시스템 보강</p>
+            </div>
+            <div>
+              <b>기술 스택</b>
+              <p>SwiftUI<br />SpriteKit<br />CoreMotion</p>
+            </div>
+            <div>
+              <b>성과</b>
+              <p>4종 미니게임, 32개 미션 자동 갱신, App Store 배포 흐름 경험</p>
+            </div>
+            <div>
+              <b>주요 개선</b>
+              <p>물리 프레임 사이클<br />Scene 생명주기<br />확장 가능한 미션<br />앱 생명주기 저장/복원</p>
+            </div>
+          </div>
+          <div class="project-case-links" aria-label="개발자 키우기 문제 해결 사례">
+            <a class="tag" href="#hmm-spritekit">HM-01 SpriteKit</a>
+            <a class="tag" href="#hmm-mission">HM-02 미션 시스템</a>
+            <a class="tag" href="#hmm-lifecycle">HM-03 저장/복원</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="problem-cases">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Problem Solving Menu</p>
+	          <h2>문제 해결 사례 8개</h2>
+        </div>
+      </div>
+
+      <div class="problem-menu" aria-label="문제 해결 사례 목록">
+        <section class="problem-column" aria-label="마이 아이 문제 해결 사례">
+          <div class="problem-project-head">
+            <img class="app-icon" src="assets/myiapp-icon.png" alt="마이 아이 아이콘" />
+            <div>
+              <b>마이 아이</b>
+              <span>출시 앱 · Firebase · Tuist</span>
+            </div>
+          </div>
+          <div class="problem-list">
+            <a class="problem-item" href="#myiapp-architecture">
+              <span class="case-number">MY-01</span>
+              <b>변경에 강한 구조로 리팩토링</b>
+              <em>새 기록을 추가하거나 홈 화면을 고칠 때 수정 범위가 커지지 않도록 구조를 정리했습니다.</em>
+            </a>
+            <a class="problem-item" href="#myiapp-cache">
+              <span class="case-number">MY-02</span>
+              <b>이미지 중복 다운로드와 첫 프레임 깜빡임</b>
+              <em>같은 Storage URL 요청을 actor 기반 inflight Task로 수렴시키고 메모리/디스크 캐시를 연결했습니다.</em>
+            </a>
+            <a class="problem-item" href="#myiapp-caregiver">
+              <span class="case-number">MY-03</span>
+              <b>가족 공유 데이터 정합성</b>
+              <em>가족이 함께 쓰는 기록을 누가 볼 수 있는지, 앱 화면과 보안 규칙이 같은 보호자 ID 목록으로 판단하게 바꿨습니다.</em>
+            </a>
+          </div>
+        </section>
+
+        <section class="problem-column" aria-label="차곡 문제 해결 사례">
+          <div class="problem-project-head">
+            <img class="app-icon" src="assets/chagok-icon.png" alt="차곡 아이콘" />
+            <div>
+              <b>차곡</b>
+              <span>AI 음성 메모 · Swift 6 · Clean Architecture</span>
+            </div>
+          </div>
+          <div class="problem-list">
+            <a class="problem-item" href="#chagok-stt">
+              <span class="case-number">CG-01</span>
+              <b>STT 동시 요청이 실패로 저장되는 문제</b>
+              <em>Speech Framework의 외부 자원 점유를 Repository 내부 큐로 관리해 오탐 실패를 제거했습니다.</em>
+            </a>
+	            <a class="problem-item" href="#chagok-service">
+	              <span class="case-number">CG-02</span>
+	              <b>분석 취소·이탈 시 상태가 남는 문제</b>
+	              <em>진행 중 Task와 이전 상태를 함께 보관해 취소·정상 종료 경로에서 전이 상태만 되돌렸습니다.</em>
+	            </a>
+          </div>
+        </section>
+
+        <section class="problem-column" aria-label="개발자 키우기 문제 해결 사례">
+          <div class="problem-project-head">
+            <img class="app-icon" src="assets/ios01-hmm-icon.png" alt="개발자 키우기 아이콘" />
+            <div>
+              <b>개발자 키우기</b>
+              <span>SpriteKit 게임 · CoreMotion · 저장/복원</span>
+            </div>
+          </div>
+          <div class="problem-list">
+            <a class="problem-item" href="#hmm-spritekit">
+              <span class="case-number">HM-01</span>
+              <b>SpriteKit 프레임 사이클과 Scene 생명주기</b>
+              <em>블록이 실제로 닿은 뒤 성공/실패를 판단하고, 게임을 나가면 다음 동작 예약도 함께 멈추게 했습니다.</em>
+            </a>
+            <a class="problem-item" href="#hmm-mission">
+              <span class="case-number">HM-02</span>
+              <b>플레이 기록으로 미션이 자동 완료되는 구조</b>
+              <em>탭 횟수, 퀴즈 정답, 미니게임 결과가 쌓이면 각 미션이 그 기록을 읽고 완료 여부를 판단하게 했습니다.</em>
+            </a>
+            <a class="problem-item" href="#hmm-lifecycle">
+              <span class="case-number">HM-03</span>
+              <b>앱 생명주기 저장/복원</b>
+              <em>앱이 백그라운드로 내려가도 User, Record, Mission 상태를 DTO로 저장하고 다음 실행 때 복원했습니다.</em>
+            </a>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section class="section" id="myiapp">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">마이 아이 · 3 Problem Cases</p>
+          <h2>마이 아이: 출시 앱에서 마주친 구조와 운영 문제</h2>
+        </div>
+      </div>
+
+      <div class="case-stack">
+        <article class="case-block" id="myiapp-architecture">
+          <div class="case-title-row">
+            <div>
+              <p class="case-kicker">MY-01 · Architecture</p>
+              <h3>화면 코드와 Firebase 코드가 얽힌 구조를 layer로 나눠 변경과 테스트가 쉬운 구조로 바꿨습니다.</h3>
+            </div>
+          </div>
+
+          <div class="case-schema">
+            <div class="schema-cell">
+              <b>문제 상황</b>
+              <ul>
+                <li>처음 구조는 화면, 데이터 모델, Firebase 통신 코드가 한 앱 안에 함께 들어가 있었습니다.</li>
+                <li>홈 타임라인을 고치려면 Firebase 저장 방식까지 같이 봐야 해서 수정 범위가 쉽게 커졌습니다.</li>
+                <li>수유, 배변, 수면 같은 기록도 하나의 큰 모델에 섞이면 어떤 값이 필요한 기록인지 매번 확인해야 했습니다.</li>
+              </ul>
+            </div>
+            <div class="schema-cell">
+              <b>설계 방향</b>
+              <ul>
+                <li>기존 코드를 한 번에 갈아엎기보다, 레거시 코드를 보존한 채 새 구조로 옮기는 방식을 선택했습니다.</li>
+                <li>layer 기준으로 화면은 Features, 규칙은 Domain, 외부 연동은 Clients로 분리했습니다.</li>
+                <li>Firebase는 앱 곳곳에서 직접 부르지 않고, Clients 계층을 통해서만 접근하도록 제한했습니다.</li>
+              </ul>
+            </div>
+            <div class="schema-cell">
+              <b>구현 근거</b>
+              <ul>
+                <li>육아 기록은 <code>CareEvent</code>로 표현해 수유, 배변, 수면처럼 기록별로 필요한 값이 드러나게 했습니다.</li>
+                <li>화면은 <code>CareRecordClient</code> 같은 인터페이스만 알고, 실제 Firestore 저장 방식은 Clients 구현 안으로 숨겼습니다.</li>
+                <li>홈 화면은 기록을 불러오고 추가하는 동작만 요청하므로, Firebase 타입을 몰라도 동작을 검증할 수 있습니다.</li>
+              </ul>
+            </div>
+            <div class="schema-cell">
+              <b>결과 또는 검증</b>
+              <ul>
+                <li>화면, 도메인 규칙, Firebase 구현, 디자인 시스템을 서로 다른 타깃으로 나눴습니다.</li>
+                <li>Firebase를 직접 아는 코드는 Clients 쪽에만 남겨 화면 코드의 변경 부담을 줄였습니다.</li>
+                <li>새 기록 타입을 추가할 때도 화면 전체를 훑기보다 기록 모델과 홈 기능 중심으로 수정 범위를 좁힐 수 있게 됐습니다.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="dependency-map" aria-label="마이 아이 의존 흐름">
+            <div class="dependency-node">
+              <span>Features / Home</span>
+              <b>화면은 기록 동작만 요청</b>
+              <em>타임라인 표시, 빠른 기록 추가, 삭제 요청</em>
+            </div>
+            <div class="dependency-arrow" aria-hidden="true">→</div>
+            <div class="dependency-node domain">
+              <span>Domain</span>
+              <b>기록 규칙과 계약을 정의</b>
+              <em>CareEvent, CareRecordClient, BabyClient</em>
+            </div>
+            <div class="dependency-arrow" aria-hidden="true">→</div>
+            <div class="dependency-node clients">
+              <span>Clients</span>
+              <b>Firebase 구현을 담당</b>
+              <em>Firestore, Auth, Crashlytics, Analytics</em>
+            </div>
+            <div class="dependency-result">
+              <b>핵심 변화</b>
+              <span>홈 화면은 Firebase 타입을 직접 알지 않아도 동작하고, 실제 저장 방식은 Clients에서 교체하거나 검증할 수 있습니다.</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="case-block" id="myiapp-cache">
+            <p class="case-kicker">MY-02 · Performance</p>
+            <h3>여러 화면에서 같은 사진을 요청해도 한 번만 내려받고, 캐시된 이미지는 첫 프레임부터 보이게 했습니다.</h3>
+            <div class="case-schema">
+              <div class="schema-cell">
+                <b>문제 상황</b>
+                <ul>
+                  <li>아기 프로필, 일지, 양육자 목록에서 같은 Firebase Storage 사진을 반복해서 보여줘야 했습니다.</li>
+                  <li>화면마다 이미지를 따로 요청하면 같은 URL도 여러 번 다운로드되고, 진입 첫 순간에는 placeholder가 다시 보였습니다.</li>
+                  <li>사진을 업로드한 직후에도 새 download URL 기준 캐시가 없으면 방금 고른 사진을 다시 네트워크에서 받아야 했습니다.</li>
+                </ul>
+              </div>
+              <div class="schema-cell">
+                <b>설계 방향</b>
+                <ul>
+                  <li>Kingfisher나 SDWebImage를 붙일 수도 있었지만, 필요한 범위는 Firebase Storage URL의 Data 캐시였습니다.</li>
+                  <li>외부 라이브러리보다 앱 안에서 통제 가능한 작은 캐시 계층을 만드는 쪽을 선택했습니다.</li>
+                  <li>동시 요청을 안전하게 합치기 위해 캐시 중심 객체는 actor로 만들었습니다.</li>
+                </ul>
+              </div>
+              <div class="schema-cell">
+                <b>구현 근거</b>
+                <ul>
+                  <li><code>CachedAsyncImage</code>는 초기화 시점에 동기 캐시를 먼저 확인해, 이미 본 이미지를 첫 프레임부터 표시합니다.</li>
+                  <li><code>URLDataCache</code>는 Memory → Disk → 진행 중인 Task → Network 순서로 조회합니다.</li>
+                  <li><code>StorageClientLive</code>는 업로드 직후 원본 Data를 새 download URL 키로 바로 저장합니다.</li>
+                </ul>
+              </div>
+              <div class="schema-cell">
+                <b>결과 또는 검증</b>
+                <ul>
+                  <li>같은 URL을 여러 화면이 동시에 요청해도 진행 중인 Task 하나를 공유합니다.</li>
+                  <li>이미 본 이미지는 화면 진입 시 placeholder 없이 바로 표시됩니다.</li>
+                  <li>업로드 직후에도 새 URL에 원본 Data가 연결되어 불필요한 재다운로드를 줄였습니다.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="dependency-map" aria-label="이미지 캐시 흐름">
+              <div class="dependency-node">
+                <span>Image View</span>
+                <b>화면은 URL 이미지를 요청</b>
+                <em>프로필, 일지, 양육자 목록의 CachedAsyncImage</em>
+              </div>
+              <div class="dependency-arrow" aria-hidden="true">→</div>
+              <div class="dependency-node domain">
+                <span>URLDataCache actor</span>
+                <b>같은 요청을 하나로 수렴</b>
+                <em>Memory → Disk → In-flight Task 순서로 확인</em>
+              </div>
+              <div class="dependency-arrow" aria-hidden="true">→</div>
+              <div class="dependency-node clients">
+                <span>Firebase Storage</span>
+                <b>캐시 미스일 때만 다운로드</b>
+                <em>업로드 직후에는 download URL 키로 원본 Data 저장</em>
+              </div>
+              <div class="dependency-result">
+                <b>핵심 변화</b>
+                <span>이미지 표시 흐름이 각 화면마다 흩어지지 않고 하나의 캐시 actor로 모여, 중복 다운로드와 첫 프레임 깜빡임을 줄였습니다.</span>
+              </div>
+            </div>
+
+            <div class="code-evidence" aria-label="이미지 캐시 핵심 코드 예시">
+              <div class="code-evidence-head">
+                <span>Core Code</span>
+                <b>동시 요청은 진행 중인 Task를 공유하고, 캐시된 이미지는 초기 상태로 바로 주입했습니다.</b>
+              </div>
+              <div class="code-example-grid">
+                <div class="code-example-card">
+                  <p>URLDataCache: 같은 URL 요청 합치기</p>
+                  <pre class="code compact"><code><span class="x-keyword">public actor</span> <span class="x-type">URLDataCache</span> {
+  <span class="x-keyword">private var</span> inflightFetches:
+    [<span class="x-type">URL</span>: <span class="x-type">Task</span>&lt;<span class="x-type">Data</span>, <span class="x-type">Error</span>&gt;] = [:]
+
+  <span class="x-keyword">public func</span> <span class="x-func">data</span>(for url: <span class="x-type">URL</span>) async throws -&gt; <span class="x-type">Data</span> {
+    <span class="x-keyword">if let</span> cached = <span class="x-type">URLDataMemoryCache</span>.shared
+      .<span class="x-func">data</span>(for: url) { <span class="x-keyword">return</span> cached }
+
+    <span class="x-keyword">if let</span> diskData = <span class="x-func">readFromDisk</span>(for: url) {
+      <span class="x-keyword">return</span> diskData
+    }
+
+    <span class="x-keyword">if let</span> existing = inflightFetches[url] {
+      <span class="x-keyword">return try await</span> existing.value
+    }
+
+    <span class="x-keyword">let</span> task = <span class="x-type">Task</span> {
+      <span class="x-keyword">try await</span> <span class="x-func">fetchAndStore</span>(url: url)
+    }
+    inflightFetches[url] = task
+    <span class="x-keyword">defer</span> { inflightFetches[url] = <span class="x-value">nil</span> }
+    <span class="x-keyword">return try await</span> task.value
+  }
+}</code></pre>
+                </div>
+                <div class="code-example-card">
+                  <p>CachedAsyncImage: 첫 프레임 캐시 표시</p>
+                  <pre class="code compact"><code><span class="x-keyword">public init</span>(url: <span class="x-type">URL</span>?) {
+  self.url = url
+
+  <span class="x-keyword">if let</span> image = <span class="x-func">cachedImage</span>(for: url) {
+    _phase = <span class="x-type">State</span>(initialValue: .success(image))
+  }
+}
+
+<span class="x-keyword">private func</span> <span class="x-func">load</span>() async {
+  <span class="x-keyword">guard let</span> url else { <span class="x-keyword">return</span> }
+
+  <span class="x-keyword">do</span> {
+    <span class="x-keyword">let</span> data = <span class="x-keyword">try await</span> <span class="x-type">URLDataCache</span>.shared
+      .<span class="x-func">data</span>(for: url)
+
+    <span class="x-keyword">guard let</span> uiImage = <span class="x-type">UIImage</span>(data: data)
+    <span class="x-keyword">else</span> { <span class="x-keyword">return</span> }
+
+    phase = .success(Image(uiImage: uiImage))
+  } <span class="x-keyword">catch</span> {
+    phase = .failure(error)
+  }
+}</code></pre>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="case-block" id="myiapp-caregiver">
+            <p class="case-kicker">MY-03 · Data Consistency</p>
+            <h3>누가 아이 기록을 볼 수 있는지 앱 화면과 Firebase 보안 규칙이 같은 보호자 목록으로 판단하게 했습니다.</h3>
+            <div class="case-schema">
+              <div class="schema-cell">
+                <b>문제 상황</b>
+                <ul>
+                  <li>레거시 구조는 <code>Baby.caregivers</code>, <code>Caregiver.babies</code>를 DocumentReference 배열로 들고 있었습니다.</li>
+                  <li>가족 초대, 탈퇴, 아기 목록 표시에서 참조를 각각 따라가면 삭제되거나 남아 있는 stale reference를 계속 정리해야 했습니다.</li>
+                  <li>기록, 울음 분석, 노트, 사진, 일정 알림도 모두 같은 가족 권한 판단이 필요했습니다.</li>
+                </ul>
+              </div>
+              <div class="schema-cell">
+                <b>설계 방향</b>
+                <ul>
+                  <li>클라이언트에서 깨진 참조를 계속 청소하는 방식은 문제를 늦게 발견할 뿐, 권한의 기준이 되기 어렵다고 봤습니다.</li>
+                  <li>Firestore Rules와 Cloud Functions에서도 바로 읽을 수 있는 UID 문자열 배열을 기준으로 잡았습니다.</li>
+                  <li><code>mainCaregiverID</code>는 소유자 역할, <code>caregiverIDs</code>는 가족 구성원 권한으로 분리했습니다.</li>
+                </ul>
+              </div>
+              <div class="schema-cell">
+                <b>구현 근거</b>
+                <ul>
+                  <li><code>Baby</code> 모델은 <code>mainCaregiverID</code>와 <code>caregiverIDs: [String]</code>을 직접 가집니다.</li>
+                  <li>신규 등록은 현재 사용자 UID를 배열에 넣고, 초대와 탈퇴는 <code>arrayUnion</code>, <code>arrayRemove</code>로 갱신합니다.</li>
+                  <li>아기 목록은 <code>whereField("caregiverIDs", arrayContains: uid)</code> 한 조건으로 조회합니다.</li>
+                </ul>
+              </div>
+              <div class="schema-cell">
+                <b>결과 또는 검증</b>
+                <ul>
+                  <li>사용자가 접근 가능한 아기 목록을 사용자 문서의 Reference 순회 없이 한 번의 쿼리로 가져옵니다.</li>
+                  <li><code>records</code>, <code>cryRecords</code>, <code>notes</code> Firestore Rules가 같은 <code>caregiverIDs</code>를 권한 키로 사용합니다.</li>
+                  <li>Storage 사진 권한과 일정 push 대상도 같은 배열을 사용해 화면, 저장소, 서버 로직의 기준을 맞췄습니다.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="dependency-map" aria-label="가족 공유 권한 흐름">
+              <div class="dependency-node">
+                <span>Baby Document</span>
+                <b>가족 권한의 단일 기준</b>
+                <em>mainCaregiverID, caregiverIDs</em>
+              </div>
+              <div class="dependency-arrow" aria-hidden="true">→</div>
+              <div class="dependency-node domain">
+                <span>App Clients</span>
+                <b>조회·초대·탈퇴가 같은 필드 갱신</b>
+                <em>arrayContains, arrayUnion, arrayRemove</em>
+              </div>
+              <div class="dependency-arrow" aria-hidden="true">→</div>
+              <div class="dependency-node clients">
+                <span>Rules / Functions</span>
+                <b>기록·사진·알림 권한에 재사용</b>
+                <em>records, cryRecords, notes, Storage, push</em>
+              </div>
+              <div class="dependency-result">
+                <b>핵심 변화</b>
+                <span>가족 구성원 판단을 참조 객체 순회가 아니라 UID 배열 하나로 모아, 앱 화면과 보안 규칙이 서로 다른 기준을 보지 않게 했습니다.</span>
+              </div>
+            </div>
+
+            <div class="code-evidence" aria-label="가족 공유 권한 핵심 코드 예시">
+              <div class="code-evidence-head">
+                <span>Core Code</span>
+                <b>조회, 초대, 탈퇴, 보안 규칙이 모두 caregiverIDs를 기준으로 동작합니다.</b>
+              </div>
+              <div class="code-example-grid">
+                <div class="code-example-card">
+                  <p>BabyClient: 목록 조회와 구성원 변경</p>
+                  <pre class="code compact"><code><span class="x-comment">// 접근 가능한 아기 목록</span>
+<span class="x-type">Firestore</span>.firestore()
+  .collection(<span class="x-value">"babies"</span>)
+  .whereField(<span class="x-value">"caregiverIDs"</span>, arrayContains: uid)
+  .getDocuments()
+
+<span class="x-comment">// 초대 수락</span>
+<span class="x-keyword">try await</span> babyRef.setData([
+  <span class="x-value">"caregiverIDs"</span>: <span class="x-type">FieldValue</span>.arrayUnion([uid])
+], merge: <span class="x-value">true</span>)
+
+<span class="x-comment">// 가족 구성원 제거</span>
+<span class="x-keyword">try await</span> babyRef.setData([
+  <span class="x-value">"caregiverIDs"</span>: <span class="x-type">FieldValue</span>.arrayRemove([caregiverID])
+], merge: <span class="x-value">true</span>)</code></pre>
+                </div>
+                <div class="code-example-card">
+                  <p>Firestore / Storage Rules: 같은 권한 키 재사용</p>
+                  <pre class="code compact"><code><span class="x-comment">// babies/{babyId}/records, cryRecords, notes</span>
+allow read, write:
+  if request.auth.uid in
+    get(
+      /databases/$(database)/documents/babies/$(babyId)
+    ).data.caregiverIDs;
+
+<span class="x-comment">// babies/{babyId}/profile/{photoId}</span>
+allow read, write, delete:
+  if request.auth.uid in
+    firestore.get(
+      /databases/(default)/documents/babies/$(babyId)
+    ).data.caregiverIDs;</code></pre>
+                </div>
+              </div>
+            </div>
+          </article>
+      </div>
+    </section>
+
+	    <section class="section" id="chagok">
+      <div class="section-head">
+        <div>
+	          <p class="eyebrow">차곡 · 2 Problem Cases</p>
+          <h2>차곡: AI 음성 파이프라인에서 나온 설계 문제</h2>
+        </div>
+      </div>
+
+      <div class="case-stack">
+	        <article class="case-block" id="chagok-stt">
+	          <div class="case-title-row">
+	            <div>
+	              <p class="case-kicker">CG-01 · Concurrency</p>
+	              <h3>STT 요청을 Repository 내부에서 FIFO로 직렬화해 동시 호출을 실패가 아닌 대기 상태로 처리했습니다.</h3>
+	            </div>
+          </div>
+
+	          <div class="case-schema">
+	            <div class="schema-cell">
+	              <b>문제 상황</b>
+	              <ul>
+	                <li>녹음이 끝나면 분석 서비스가 음성 파일을 전사하고, 전사 결과가 만들어지면 요약 단계로 이어지는 구조였습니다.</li>
+	                <li>짧은 녹음을 연속으로 저장하면 앞 전사가 끝나기 전에 다음 <code>transcribe</code> 호출이 들어올 수 있었습니다.</li>
+	                <li>외부 음성 인식 자원이 겹치면 실제 음성 파일 문제가 아닌데도 <code>.transcriptionFailed</code> 상태로 저장될 수 있었습니다.</li>
+	              </ul>
+	            </div>
+	            <div class="schema-cell">
+	              <b>설계 방향</b>
+	              <ul>
+	                <li>화면에서 버튼을 막는 방식은 백그라운드 분석, 재시도, 자동 큐잉 같은 진입점을 모두 막지 못합니다.</li>
+	                <li>호출 측에 재시도 로직을 두면 STT 자원 점유 정책이 여러 계층으로 퍼집니다.</li>
+	                <li>그래서 <code>STTRepository</code> actor가 슬롯을 소유하고, 들어온 요청을 FIFO 순서로 기다리게 했습니다.</li>
+	              </ul>
+	            </div>
+	            <div class="schema-cell">
+	              <b>구현 근거</b>
+	              <ul>
+	                <li><code>DefaultSTTRepository</code>는 <code>isBusy</code>와 <code>waiters</code> 큐를 actor 내부 상태로 가집니다.</li>
+	                <li><code>transcribe</code> 시작 시 <code>acquireSlot()</code>을 호출하고, 종료 시 <code>defer releaseSlot()</code>으로 다음 요청을 깨웁니다.</li>
+	                <li>대기 중 취소된 요청은 <code>cancelWaiter</code>에서 큐에서 제거해 불필요한 전사를 시작하지 않게 했습니다.</li>
+	              </ul>
+	            </div>
+	            <div class="schema-cell">
+	              <b>결과 또는 검증</b>
+	              <ul>
+	                <li>동시에 들어온 전사 요청은 첫 작업이 끝날 때까지 실패로 떨어지지 않고 대기합니다.</li>
+	                <li>분석 서비스 입장에서는 <code>transcribe</code> 호출만 유지하면 되어, 큐잉 정책이 화면이나 UseCase로 새지 않습니다.</li>
+	                <li><code>.transcribeFailed</code>는 단순 자원 경합이 아니라 실제 인식 실패에 가까운 신호로 남게 됐습니다.</li>
+	              </ul>
+	            </div>
+	          </div>
+	
+	          <div class="dependency-map" aria-label="차곡 STT 큐잉 흐름">
+	            <div class="dependency-node">
+	              <span>Analysis Service</span>
+	              <b>전사 요청을 시작</b>
+	              <em>voiceNoteID별 Task를 만들고 STTRepository.transcribe 호출</em>
+	            </div>
+	            <div class="dependency-arrow" aria-hidden="true">→</div>
+	            <div class="dependency-node domain">
+	              <span>STTRepository actor</span>
+	              <b>한 번에 하나만 실행</b>
+	              <em>isBusy, waiters, acquireSlot, releaseSlot</em>
+	            </div>
+	            <div class="dependency-arrow" aria-hidden="true">→</div>
+	            <div class="dependency-node clients">
+	              <span>Speech Resource</span>
+	              <b>외부 인식 작업을 보호</b>
+	              <em>SFSpeechURLRecognitionRequest, SFSpeechRecognitionTask</em>
+	            </div>
+	            <div class="dependency-result">
+	              <b>핵심 변화</b>
+	              <span>동시 호출을 호출자 실패로 돌리지 않고, STT 자원을 감싼 Repository가 순서를 보장하도록 책임을 모았습니다.</span>
+	            </div>
+	          </div>
+
+	          <div class="code-evidence" aria-label="STT 동시성 핵심 코드 예시">
+	            <div class="code-evidence-head">
+	              <span>Core Code</span>
+	              <b>전사 시작 전 슬롯을 확보하고, 작업 종료 시 다음 대기자를 FIFO로 깨웁니다.</b>
+	            </div>
+	            <div class="code-example-grid">
+	              <div class="code-example-card">
+	                <p>DefaultSTTRepository: 전사 작업 직렬화</p>
+	                <pre class="code compact"><code><span class="x-keyword">public actor</span> <span class="x-type">DefaultSTTRepository</span>: <span class="x-type">STTRepository</span> {
+  <span class="x-keyword">private var</span> isBusy = <span class="x-value">false</span>
+  <span class="x-keyword">private var</span> waiters: [<span class="x-type">Waiter</span>] = []
+
+  <span class="x-keyword">public func</span> <span class="x-func">transcribe</span>(
+    audioFilePath: <span class="x-type">String</span>
+  ) async throws -&gt; <span class="x-type">Transcript</span> {
+    <span class="x-keyword">try await</span> <span class="x-func">acquireSlot</span>()
+    <span class="x-keyword">defer</span> { <span class="x-func">releaseSlot</span>() }
+
+    <span class="x-keyword">let</span> url = storageService
+      .absoluteURL(for: audioFilePath)
+
+    <span class="x-keyword">return try await</span> withCheckedThrowingContinuation {
+      <span class="x-keyword">try</span> <span class="x-func">startRecognitionTask</span>(
+        audioFileURL: url,
+        continuation: $0
+      )
+    }
+  }
+}</code></pre>
+	              </div>
+	              <div class="code-example-card">
+	                <p>Slot Queue: 대기자 인계와 취소 처리</p>
+	                <pre class="code compact"><code><span class="x-keyword">private func</span> <span class="x-func">acquireSlot</span>() async throws {
+  <span class="x-keyword">if</span> !isBusy {
+    isBusy = <span class="x-value">true</span>
+    <span class="x-keyword">return</span>
+  }
+
+  <span class="x-keyword">let</span> granted = <span class="x-keyword">await</span> <span class="x-func">waitInQueue</span>()
+  <span class="x-keyword">if</span> !granted { <span class="x-keyword">throw</span> .cancelled }
+}
+
+<span class="x-keyword">private func</span> <span class="x-func">releaseSlot</span>() {
+  <span class="x-keyword">guard</span> !waiters.isEmpty <span class="x-keyword">else</span> {
+    isBusy = <span class="x-value">false</span>
+    <span class="x-keyword">return</span>
+  }
+
+  waiters.removeFirst()
+    .continuation.resume(returning: <span class="x-value">true</span>)
+}</code></pre>
+	              </div>
+	            </div>
+	          </div>
+	        </article>
+
+        <article class="case-block" id="chagok-service">
+          <div class="case-title-row">
+            <div>
+              <p class="case-kicker">CG-02 · Analysis Lifecycle</p>
+              <h3>분석 취소·이탈 상황에서도 완료된 결과는 보존하고, 진행 중 상태만 정리했습니다.</h3>
+            </div>
+          </div>
+
+          <div class="case-schema">
+            <div class="schema-cell">
+              <b>문제 상황</b>
+              <ul>
+                <li>음성 메모 분석은 pending → transcribing → transcribed → summarizing/regenerating → completed로 이어집니다.</li>
+                <li>전사나 요약 Task가 실행 중일 때 사용자가 분석을 취소하거나 앱을 종료할 수 있습니다.</li>
+                <li>전이 상태가 DB에 남으면 화면은 계속 로딩으로 보이고, 취소를 실패로 처리하면 이미 만들어진 전사·요약 결과까지 흔들릴 수 있었습니다.</li>
+              </ul>
+            </div>
+            <div class="schema-cell">
+              <b>설계 방향</b>
+              <ul>
+                <li>ViewController 생명주기에만 맡기면 화면 밖에서도 계속 도는 분석 Task를 안정적으로 정리하기 어렵다고 봤습니다.</li>
+                <li>취소 시 DB를 다시 추론하는 방식보다, Task를 시작한 서비스가 이전 안정 상태를 함께 들고 있는 방식이 명확했습니다.</li>
+                <li>그래서 VoiceNoteAnalysisService가 진행 중 Task와 previousState를 함께 보관하고, 취소·정상 종료 경로에서만 상태를 되돌리게 했습니다.</li>
+              </ul>
+            </div>
+            <div class="schema-cell">
+              <b>구현 근거</b>
+              <ul>
+                <li>startTranscription, startSummarization은 먼저 transcribing, summarizing, regenerating 같은 전이 상태를 저장합니다.</li>
+                <li>entries에는 voiceNoteID별 Task와 previousState를 함께 저장해 어떤 상태로 되돌릴지 잃지 않게 했습니다.</li>
+                <li>revertState는 현재 상태가 전이 상태일 때만 previousState로 되돌려 completed, transcribed 같은 결과 상태를 건드리지 않습니다.</li>
+              </ul>
+            </div>
+            <div class="schema-cell">
+              <b>결과 또는 검증</b>
+              <ul>
+                <li>AppDelegate의 applicationWillTerminate에서 cancelAll()을 호출해 앱 종료 시 진행 중인 분석을 한 번에 정리합니다.</li>
+                <li>취소된 Task는 실패 상태를 저장하지 않고, 이전 안정 상태로 되돌아가 화면이 무한 로딩에 머무르지 않게 했습니다.</li>
+                <li>이미 저장된 transcript, summary는 상태 복구 과정에서 덮어쓰지 않아 결과 보존과 상태 정리를 분리했습니다.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="sequence-diagram" aria-label="차곡 분석 취소 상태 정리 시퀀스">
+            <svg class="sequence-svg" viewBox="0 0 920 500" role="img" aria-labelledby="chagok-seq-title chagok-seq-desc">
+              <title id="chagok-seq-title">차곡 분석 취소 상태 정리 시퀀스</title>
+              <desc id="chagok-seq-desc">사용자 또는 앱 종료가 AnalysisService에 요청하고, 서비스가 Task와 Repository를 조정해 성공 결과는 보존하고 전이 상태만 복구하는 흐름입니다.</desc>
+              <defs>
+                <marker id="chagok-seq-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth">
+                  <path d="M0,0 L8,4 L0,8 Z" fill="#64748b"></path>
+                </marker>
+              </defs>
+
+              <rect class="sequence-participant-box" x="20" y="18" width="150" height="44" rx="8"></rect>
+              <rect class="sequence-participant-box" x="230" y="18" width="180" height="44" rx="8"></rect>
+              <rect class="sequence-participant-box" x="480" y="18" width="160" height="44" rx="8"></rect>
+              <rect class="sequence-participant-box" x="710" y="18" width="170" height="44" rx="8"></rect>
+              <text class="sequence-participant-text" x="95" y="45" text-anchor="middle">사용자 / 앱 종료</text>
+              <text class="sequence-participant-text" x="320" y="45" text-anchor="middle">AnalysisService</text>
+              <text class="sequence-participant-text" x="560" y="45" text-anchor="middle">Analysis Task</text>
+              <text class="sequence-participant-text" x="795" y="45" text-anchor="middle">Repository / DB</text>
+
+              <line class="sequence-lifeline" x1="95" y1="72" x2="95" y2="476"></line>
+              <line class="sequence-lifeline" x1="320" y1="72" x2="320" y2="476"></line>
+              <line class="sequence-lifeline" x1="560" y1="72" x2="560" y2="476"></line>
+              <line class="sequence-lifeline" x1="795" y1="72" x2="795" y2="476"></line>
+
+              <text class="sequence-section-text" x="24" y="94">normal flow</text>
+              <line class="sequence-arrow-line" x1="95" y1="118" x2="320" y2="118" marker-end="url(#chagok-seq-arrow)"></line>
+              <rect class="sequence-label-bg" x="132" y="102" width="150" height="28" rx="14"></rect>
+              <text class="sequence-label-text" x="207" y="121" text-anchor="middle">enqueue / regenerate</text>
+
+              <line class="sequence-arrow-line" x1="320" y1="166" x2="795" y2="166" marker-end="url(#chagok-seq-arrow)"></line>
+              <rect class="sequence-label-bg" x="492" y="150" width="132" height="28" rx="14"></rect>
+              <text class="sequence-label-text" x="558" y="169" text-anchor="middle">전이 상태 저장</text>
+
+              <rect class="sequence-note-bg" x="228" y="190" width="184" height="42" rx="8"></rect>
+              <text class="sequence-note-text" x="320" y="207" text-anchor="middle">Entry에 Task와</text>
+              <text class="sequence-note-text" x="320" y="224" text-anchor="middle">previousState 보관</text>
+
+              <line class="sequence-arrow-line" x1="320" y1="256" x2="560" y2="256" marker-end="url(#chagok-seq-arrow)"></line>
+              <rect class="sequence-label-bg" x="392" y="240" width="96" height="28" rx="14"></rect>
+              <text class="sequence-label-text" x="440" y="259" text-anchor="middle">Task 시작</text>
+
+              <line class="sequence-arrow-line" x1="560" y1="304" x2="795" y2="304" marker-end="url(#chagok-seq-arrow)"></line>
+              <rect class="sequence-label-bg" x="610" y="288" width="136" height="28" rx="14"></rect>
+              <text class="sequence-label-text" x="678" y="307" text-anchor="middle">결과 저장</text>
+
+              <line class="sequence-divider" x1="20" y1="336" x2="880" y2="336"></line>
+              <text class="sequence-section-text" x="24" y="360">cancel / exit flow</text>
+
+              <line class="sequence-arrow-line" x1="95" y1="382" x2="320" y2="382" marker-end="url(#chagok-seq-arrow)"></line>
+              <rect class="sequence-label-bg" x="122" y="366" width="170" height="28" rx="14"></rect>
+              <text class="sequence-label-text" x="207" y="385" text-anchor="middle">cancel / terminate</text>
+
+              <line class="sequence-arrow-line" x1="320" y1="424" x2="560" y2="424" marker-end="url(#chagok-seq-arrow)"></line>
+              <rect class="sequence-label-bg" x="388" y="408" width="104" height="28" rx="14"></rect>
+              <text class="sequence-label-text" x="440" y="427" text-anchor="middle">task.cancel()</text>
+
+              <line class="sequence-arrow-line" x1="320" y1="466" x2="795" y2="466" marker-end="url(#chagok-seq-arrow)"></line>
+              <rect class="sequence-label-bg" x="444" y="450" width="232" height="28" rx="14"></rect>
+              <text class="sequence-label-text" x="560" y="469" text-anchor="middle">전이 상태면 previousState 복구</text>
+            </svg>
+            <div class="sequence-result">
+              <b>핵심 변화</b>
+              <span>전사·요약 결과 데이터는 건드리지 않고, 화면을 무한 로딩으로 만드는 진행 상태만 정리합니다.</span>
+            </div>
+          </div>
+
+          <div class="code-evidence" aria-label="분석 취소 상태 정리 핵심 코드 예시">
+            <div class="code-evidence-head">
+              <span>Core Code</span>
+              <b>진행 중 Task와 이전 상태를 함께 저장하고, 취소 시 전이 상태만 되돌립니다.</b>
+            </div>
+            <div class="code-example-grid">
+              <div class="code-example-card">
+                <p>VoiceNoteAnalysisService: Task와 previousState 보관</p>
+                <pre class="code compact"><code><span class="x-keyword">@MainActor</span>
+<span class="x-keyword">public final class</span> <span class="x-type">DefaultVoiceNoteAnalysisService</span> {
+  <span class="x-keyword">private struct</span> <span class="x-type">Entry</span> {
+    <span class="x-keyword">let</span> task: <span class="x-type">Task</span>&lt;<span class="x-type">Void</span>, <span class="x-type">Never</span>&gt;
+    <span class="x-keyword">let</span> previousState: <span class="x-type">AnalysisState</span>
+  }
+
+  <span class="x-keyword">private var</span> entries: [<span class="x-type">UUID</span>: <span class="x-type">Entry</span>] = [:]
+
+  <span class="x-keyword">private func</span> <span class="x-func">startTranscription</span>(
+    <span class="x-prop">for</span> voiceNote: <span class="x-type">VoiceNote</span>,
+    previousState: <span class="x-type">AnalysisState</span>
+  ) {
+    <span class="x-func">persist</span>(voiceNote: voiceNote, analysisState: .transcribing)
+
+    <span class="x-keyword">let</span> task = <span class="x-type">Task</span> { <span class="x-comment">/* STT 실행 */</span> }
+    entries[voiceNote.id] = <span class="x-type">Entry</span>(
+      task: task,
+      previousState: previousState
+    )
+  }
+}</code></pre>
+              </div>
+              <div class="code-example-card">
+                <p>cancelAll / revertState: 전이 상태만 되돌리기</p>
+                <pre class="code compact"><code><span class="x-keyword">public func</span> <span class="x-func">cancelAll</span>() {
+  <span class="x-keyword">let</span> snapshot = entries
+  entries.<span class="x-func">removeAll</span>()
+
+  <span class="x-keyword">for</span> (id, entry) <span class="x-keyword">in</span> snapshot {
+    entry.task.<span class="x-func">cancel</span>()
+    <span class="x-func">revertState</span>(
+      voiceNoteID: id,
+      to: entry.previousState
+    )
+  }
+}
+
+<span class="x-keyword">private func</span> <span class="x-func">revertState</span>(
+  voiceNoteID: <span class="x-type">UUID</span>,
+  to previousState: <span class="x-type">AnalysisState</span>
+) {
+  <span class="x-keyword">guard let</span> current = <span class="x-func">fetch</span>(voiceNoteID) <span class="x-keyword">else</span> { <span class="x-keyword">return</span> }
+
+  <span class="x-keyword">switch</span> current.analysisState {
+  <span class="x-keyword">case</span> .transcribing, .summarizing, .regenerating:
+    <span class="x-func">persist</span>(voiceNote: current, analysisState: previousState)
+  <span class="x-keyword">default</span>:
+    <span class="x-keyword">break</span>
+  }
+}</code></pre>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="ios01-hmm">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">개발자 키우기 · 3 Problem Cases</p>
+          <h2>개발자 키우기: 게임 구현에서 검증한 문제 해결</h2>
+        </div>
+      </div>
+
+      <div class="case-stack">
+        <article class="case-block" id="hmm-spritekit">
+          <div class="case-title-row">
+            <div>
+              <p class="case-kicker">HM-01 · SpriteKit Lifecycle</p>
+              <h3>블록이 실제로 닿은 뒤 성공/실패를 판단하고, 게임을 나가면 남은 동작도 함께 멈추게 했습니다.</h3>
+            </div>
+          </div>
+
+          <div class="case-schema">
+            <div class="schema-cell">
+              <b>문제 상황</b>
+              <ul>
+                <li>사용자가 탭하면 움직이던 블록이 아래로 떨어지고, 이전 블록 위에 제대로 올라갔는지 성공/실패를 판단해야 했습니다.</li>
+                <li>그런데 너무 빨리 판단하면, 화면에서는 아직 닿지 않았는데 코드에서는 이미 닿은 것처럼 계산될 수 있었습니다.</li>
+                <li>또 게임을 나가거나 일시정지했는데, 잠시 뒤 실행되기로 예약된 다음 블록 생성이 계속 남아 있을 수 있었습니다.</li>
+              </ul>
+            </div>
+            <div class="schema-cell">
+              <b>설계 방향</b>
+              <ul>
+                <li>SwiftUI에서 위치를 추측하지 않고, SpriteKit이 블록의 실제 물리 위치를 계산한 다음에 성공/실패를 판단하게 했습니다.</li>
+                <li>화면 쪽은 “현재 블록이 어디에 있는지”만 넘기고, 성공·실패와 보상 계산은 StackGame 모델이 맡게 했습니다.</li>
+                <li>다음 블록 생성 같은 예약 작업은 블록 노드에 붙여두어, 노드가 사라지면 예약 작업도 같이 사라지게 했습니다.</li>
+              </ul>
+            </div>
+            <div class="schema-cell">
+              <b>구현 근거</b>
+              <ul>
+                <li>BlockItem은 startMoving, stopMoving, enableGravity, fixPosition처럼 노드 표현과 물리 바디 제어만 담당합니다.</li>
+                <li>StackGameScene.didSimulatePhysics는 currentBlockView의 실제 y좌표가 목표 높이에 도달한 뒤에만 checkAlignmentAndHandle을 호출합니다.</li>
+                <li>checkAlignmentAndHandle은 실제 block.position.x와 targetY를 StackGame에 전달한 뒤, 성공이면 위치를 고정하고 실패면 물리를 유지합니다.</li>
+              </ul>
+            </div>
+            <div class="schema-cell">
+              <b>결과 또는 검증</b>
+              <ul>
+                <li>성공/실패 판단 기준이 화면 추정값이 아니라 실제로 떨어진 블록 위치로 맞춰졌습니다.</li>
+                <li>게임을 일시정지하거나 나갈 때 현재 블록, 카메라, 쌓인 블록의 동작과 참조를 정리했습니다.</li>
+                <li>다음 블록 생성과 제거 예약이 게임 화면 밖에 남아 실행되는 위험을 줄였습니다.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="dependency-map" aria-label="개발자 키우기 StackGame 판정 흐름">
+            <div class="dependency-node">
+              <span>BlockItem</span>
+              <b>이동과 물리 바디 제어</b>
+              <em>stopMoving(), enableGravity(), fixPosition()</em>
+            </div>
+            <div class="dependency-arrow" aria-hidden="true">→</div>
+            <div class="dependency-node domain">
+              <span>StackGameScene</span>
+              <b>물리 계산 이후 좌표 판정</b>
+              <em>didSimulatePhysics(), checkAlignmentAndHandle()</em>
+            </div>
+            <div class="dependency-arrow" aria-hidden="true">→</div>
+            <div class="dependency-node clients">
+              <span>StackGame</span>
+              <b>성공·실패와 보상 계산</b>
+              <em>updateCurrentBlockPosition(), checkAlignment(), placeBlockSuccess()</em>
+            </div>
+            <div class="dependency-result">
+              <b>핵심 변화</b>
+              <span>SpriteKit Scene은 실제 물리 좌표만 전달하고, 게임 규칙은 StackGame 모델에서만 판단하게 분리했습니다.</span>
+            </div>
+          </div>
+
+          <div class="code-evidence" aria-label="SpriteKit 판정 타이밍 핵심 코드 예시">
+            <div class="code-evidence-head">
+              <span>Core Code</span>
+              <b>물리 계산이 끝난 뒤 실제 노드 좌표로 판정하고, 지연 작업은 SKAction으로 노드에 묶었습니다.</b>
+            </div>
+            <div class="code-example-grid">
+              <div class="code-example-card">
+                <p>StackGameScene: didSimulatePhysics 이후 판정</p>
+                <pre class="code compact"><code><span class="x-keyword">override func</span> <span class="x-func">didSimulatePhysics</span>() {
+  <span class="x-keyword">guard</span> !isGamePaused <span class="x-keyword">else</span> { <span class="x-keyword">return</span> }
+  <span class="x-keyword">guard let</span> block = currentBlockView,
+        <span class="x-keyword">let</span> previousBlock = stackGame.previousBlock
+  <span class="x-keyword">else</span> { <span class="x-keyword">return</span> }
+
+  <span class="x-keyword">let</span> targetY = previousBlock.positionY + previousBlock.height
+
+  <span class="x-keyword">if</span> block.position.y &lt;= targetY {
+    <span class="x-func">checkAlignmentAndHandle</span>(targetY: targetY)
+  }
+}
+
+<span class="x-keyword">func</span> <span class="x-func">checkAlignmentAndHandle</span>(targetY: <span class="x-type">CGFloat</span>) {
+  <span class="x-keyword">guard let</span> block = currentBlockView <span class="x-keyword">else</span> { <span class="x-keyword">return</span> }
+
+  stackGame.<span class="x-func">updateCurrentBlockPosition</span>(
+    positionX: block.position.x,
+    positionY: targetY
+  )
+
+  <span class="x-keyword">if</span> stackGame.<span class="x-func">checkAlignment</span>() {
+    block.<span class="x-func">fixPosition</span>()
+    block.position = <span class="x-type">CGPoint</span>(x: block.position.x, y: targetY)
+    <span class="x-func">placeBlockSuccess</span>()
+  } <span class="x-keyword">else</span> {
+    <span class="x-func">placeBlockFail</span>()
+  }
+}</code></pre>
+              </div>
+              <div class="code-example-card">
+                <p>BlockItem / StackGameScene: 액션과 지연 작업 생명주기</p>
+                <pre class="code compact"><code><span class="x-keyword">func</span> <span class="x-func">dropBlock</span>() {
+  <span class="x-keyword">guard let</span> block = currentBlockView <span class="x-keyword">else</span> { <span class="x-keyword">return</span> }
+
+  isInteractionLocked = <span class="x-value">true</span>
+  block.<span class="x-func">stopMoving</span>()
+  block.<span class="x-func">enableGravity</span>()
+}
+
+<span class="x-keyword">func</span> <span class="x-func">runAfterDelay</span>(
+  on block: <span class="x-type">SKNode</span>,
+  delay: <span class="x-type">TimeInterval</span>,
+  completion: <span class="x-keyword">@escaping</span> () -&gt; <span class="x-type">Void</span>
+) {
+  <span class="x-keyword">let</span> action = <span class="x-type">SKAction</span>.<span class="x-func">sequence</span>([
+    <span class="x-type">SKAction</span>.<span class="x-func">wait</span>(forDuration: delay),
+    <span class="x-type">SKAction</span>.<span class="x-func">run</span>(completion),
+  ])
+  block.<span class="x-func">run</span>(action)
+}
+
+<span class="x-keyword">func</span> <span class="x-func">pauseGame</span>() {
+  physicsWorld.speed = <span class="x-value">0</span>
+  currentBlockView?.<span class="x-func">removeAllActions</span>()
+  currentBlockView?.<span class="x-func">removeFromParent</span>()
+  currentBlockView = <span class="x-value">nil</span>
+}</code></pre>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="case-block" id="hmm-mission">
+          <div class="case-title-row">
+            <div>
+              <p class="case-kicker">HM-02 · Mission System</p>
+              <h3>게임은 결과만 기록하고, 32개 미션은 Record 기준으로 자동 갱신되게 했습니다.</h3>
+            </div>
+          </div>
+
+          <div class="case-schema">
+            <div class="schema-cell">
+              <b>문제 상황</b>
+              <ul>
+                <li>미션이 탭, 언어맞추기, 버그피하기, 데이터쌓기, 플레이 시간, 아이템 사용, 튜토리얼, 커리어 달성까지 32개로 늘었습니다.</li>
+                <li>각 게임 안에 “이 미션도 완료됐나?” 조건을 넣으면 게임 규칙과 미션 정책이 서로 엉키게 됩니다.</li>
+                <li>미션 화면에서 직접 값을 계산하면 저장, 복원, 정렬, 보상 상태가 여러 곳으로 흩어질 수 있었습니다.</li>
+              </ul>
+            </div>
+            <div class="schema-cell">
+              <b>설계 방향</b>
+              <ul>
+                <li>게임 객체는 성공, 실패, 획득 같은 결과만 <code>Record.Event</code>로 남기게 했습니다.</li>
+                <li><code>Record</code>가 누적값을 갱신한 뒤, 매 기록마다 <code>MissionSystem</code>에 미션 갱신을 요청하게 했습니다.</li>
+                <li>미션별 목표값과 완료 조건은 <code>MissionFactory</code>, <code>MissionType</code>, <code>MissionConstants</code>로 모았습니다.</li>
+              </ul>
+            </div>
+            <div class="schema-cell">
+              <b>구현 근거</b>
+              <ul>
+                <li><code>TapGame</code>, <code>StackGame</code>, <code>LanguageGame</code>, <code>DodgeGame</code>은 각각 <code>record(.tap)</code>, <code>record(.stackingSuccess)</code>처럼 이벤트만 호출합니다.</li>
+                <li><code>MissionType.currentValue</code>는 미션마다 필요한 <code>Record</code> 필드만 읽습니다.</li>
+                <li><code>Mission.update(record:)</code>는 현재값을 갱신하고, 기본 조건은 <code>currentValue &gt;= targetValue</code>로 판단합니다.</li>
+              </ul>
+            </div>
+            <div class="schema-cell">
+              <b>결과 또는 검증</b>
+              <ul>
+                <li>새 미션을 추가할 때 게임 화면이나 미니게임 로직을 다시 열지 않아도 되는 구조가 됐습니다.</li>
+                <li><code>MissionSystem</code>이 완료 상태 정렬, 보상 수령, <code>hasCompletedMission</code> 배지 상태를 한 곳에서 관리합니다.</li>
+                <li><code>RecordDTO</code>가 미션 상태를 id 기준으로 저장하고 복원해, 앱 재실행 뒤에도 진행 상태가 유지됩니다.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="dependency-map" aria-label="개발자 키우기 미션 갱신 흐름">
+            <div class="dependency-node">
+              <span>Game Result</span>
+              <b>게임은 이벤트만 기록</b>
+              <em>tap, stackingSuccess, languageCorrect, dodgeBugAvoid</em>
+            </div>
+            <div class="dependency-arrow">→</div>
+            <div class="dependency-node domain">
+              <span>Record</span>
+              <b>누적값을 한 곳에서 갱신</b>
+              <em>카운터 업데이트 후 MissionSystem에 전달</em>
+            </div>
+            <div class="dependency-arrow">→</div>
+            <div class="dependency-node clients">
+              <span>Mission System</span>
+              <b>32개 미션 완료 여부 판단</b>
+              <em>MissionFactory 조건, 정렬, 보상, 배지 상태 관리</em>
+            </div>
+            <div class="dependency-result">
+              <b>핵심 변화</b>
+              게임 로직은 미션을 몰라도 되고, 미션은 Record만 읽어서 완료 여부를 판단합니다.
+            </div>
+          </div>
+
+          <div class="code-evidence" aria-label="미션 시스템 핵심 코드 예시">
+            <div class="code-evidence-head">
+              <span>Core Code</span>
+              <b>게임 이벤트를 Record로 모으고, 미션 조건은 MissionType과 MissionSystem에서만 판단했습니다.</b>
+            </div>
+            <div class="code-example-grid">
+              <div class="code-example-card">
+                <p>Record: 이벤트를 단일 진입점으로 모으기</p>
+                <pre class="code compact"><code><span class="x-keyword">func</span> <span class="x-func">record</span>(_ event: <span class="x-type">Event</span>) {
+  <span class="x-keyword">switch</span> event {
+  <span class="x-keyword">case</span> .tap(<span class="x-keyword">let</span> count):
+    totalTapCount += count
+  <span class="x-keyword">case</span> .stackingSuccess:
+    stackingSuccessCount += <span class="x-value">1</span>
+    stackConsecutiveSuccess += <span class="x-value">1</span>
+  <span class="x-keyword">case</span> .stackingFail:
+    stackConsecutiveSuccess = <span class="x-value">0</span>
+  <span class="x-keyword">case</span> .languageCorrect:
+    languageCorrectCount += <span class="x-value">1</span>
+    languageConsecutiveCorrect += <span class="x-value">1</span>
+  <span class="x-keyword">case</span> .dodgeBugAvoid(<span class="x-keyword">let</span> currentCombo):
+    dodgeMaxCombo = <span class="x-func">max</span>(currentCombo, dodgeMaxCombo)
+  <span class="x-keyword">default</span>:
+    <span class="x-comment">/* money, item, playTime, tutorial, career */</span>
+  }
+
+  missionSystem.<span class="x-func">updateCompletedMissions</span>(record: self)
+}</code></pre>
+              </div>
+              <div class="code-example-card">
+                <p>MissionFactory / MissionSystem: 조건은 미션 쪽에서만 판단</p>
+                <pre class="code compact"><code><span class="x-keyword">var</span> currentValue: (<span class="x-type">Record</span>) -&gt; <span class="x-type">Int</span> {
+  <span class="x-keyword">switch</span> self {
+  <span class="x-keyword">case</span> .tap:
+    <span class="x-keyword">return</span> { $0.totalTapCount }
+  <span class="x-keyword">case</span> .stackItem:
+    <span class="x-keyword">return</span> { $0.stackingSuccessCount }
+  <span class="x-keyword">case</span> .stackConsecutive:
+    <span class="x-keyword">return</span> { $0.stackConsecutiveSuccess }
+  <span class="x-comment">/* languageMatch, bugDodge, playTime, item, tutorial */</span>
+  <span class="x-keyword">case</span> .career:
+    <span class="x-keyword">return</span> { $0.hasAchievedJuniorDeveloper ? <span class="x-value">1</span> : <span class="x-value">0</span> }
+  }
+}
+
+<span class="x-keyword">func</span> <span class="x-func">updateCompletedMissions</span>(record: <span class="x-type">Record</span>) {
+  missions
+    .<span class="x-func">filter</span> { $0.state == .inProgress }
+    .<span class="x-func">forEach</span> { $0.<span class="x-func">update</span>(record: record) }
+
+  <span class="x-func">sortMissions</span>()
+  <span class="x-func">checkHasCompletedMission</span>()
+}</code></pre>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="case-block" id="hmm-lifecycle">
+          <div class="case-title-row">
+            <div>
+              <p class="case-kicker">HM-03 · App Lifecycle</p>
+              <h3>앱이 중단돼도 성장 상태와 미션 진행도를 잃지 않게 저장 경계를 분리했습니다.</h3>
+            </div>
+          </div>
+
+          <div class="case-schema">
+            <div class="schema-cell">
+              <b>문제 상황</b>
+              <ul>
+                <li>게임은 재화, 스킬, 장비, 미션, 기록처럼 계속 쌓이는 상태가 많았습니다.</li>
+                <li>앱이 백그라운드로 내려가거나 종료될 때 저장하지 않으면 방금 얻은 보상과 미션 진행도가 사라질 수 있었습니다.</li>
+                <li>화면 상태를 그대로 저장하려 하면 SwiftUI 상태, 게임 모델, 영속 데이터가 한데 섞일 위험이 있었습니다.</li>
+              </ul>
+            </div>
+            <div class="schema-cell">
+              <b>설계 방향</b>
+              <ul>
+                <li>저장은 앱 루트의 <code>scenePhase</code> 변화에서만 트리거하게 했습니다.</li>
+                <li>화면 객체를 저장하지 않고, <code>UserDTO</code>, <code>RecordDTO</code>, <code>MissionStateDTO</code>처럼 복원에 필요한 값만 분리했습니다.</li>
+                <li>실제 파일 저장과 로드는 <code>UserRepository</code>로 감춰 앱 루트가 저장 방식까지 알지 않게 했습니다.</li>
+              </ul>
+            </div>
+            <div class="schema-cell">
+              <b>구현 근거</b>
+              <ul>
+                <li><code>SoloDeveloperTrainingApp</code>은 <code>.background</code>, <code>.inactive</code>에서 <code>saveUser()</code>를 호출합니다.</li>
+                <li><code>FileManagerUserRepository</code>는 <code>UserDTO</code>를 JSON으로 인코딩해 Documents의 <code>user_data.json</code>에 atomic write로 저장합니다.</li>
+                <li><code>RecordDTO.toRecord()</code>는 32개 미션을 다시 만든 뒤, 저장된 <code>MissionStateDTO</code>를 id 기준으로 찾아 진행도와 상태를 복원합니다.</li>
+              </ul>
+            </div>
+            <div class="schema-cell">
+              <b>결과 또는 검증</b>
+              <ul>
+                <li>앱 실행 시 <code>loadUser()</code>가 저장된 사용자를 복원하고, 없으면 온보딩 흐름으로 진입합니다.</li>
+                <li>재화, 인벤토리, 스킬, 기록, 미션 상태가 한 DTO 그래프로 저장되어 복원 기준이 명확해졌습니다.</li>
+                <li>미션 정의는 코드에서 다시 생성하고, 사용자의 진행 상태만 덮어써 미션 목록 변경에도 대응하기 쉬워졌습니다.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="dependency-map" aria-label="개발자 키우기 앱 생명주기 저장 흐름">
+            <div class="dependency-node">
+              <span>Scene Phase</span>
+              <b>백그라운드/비활성 전환 감지</b>
+              <em>앱 루트에서 saveUser() 호출</em>
+            </div>
+            <div class="dependency-arrow">→</div>
+            <div class="dependency-node domain">
+              <span>DTO Boundary</span>
+              <b>복원에 필요한 값만 직렬화</b>
+              <em>UserDTO, RecordDTO, MissionStateDTO</em>
+            </div>
+            <div class="dependency-arrow">→</div>
+            <div class="dependency-node clients">
+              <span>Repository</span>
+              <b>JSON 파일로 저장하고 다음 실행 때 복원</b>
+              <em>Documents/user_data.json, atomic write</em>
+            </div>
+            <div class="dependency-result">
+              <b>핵심 변화</b>
+              화면 상태가 아니라 사용자 진행 상태를 저장 단위로 삼아, 앱 종료와 재실행 사이의 데이터 손실을 줄였습니다.
+            </div>
+          </div>
+
+          <div class="code-evidence" aria-label="앱 생명주기 저장 복원 핵심 코드 예시">
+            <div class="code-evidence-head">
+              <span>Core Code</span>
+              <b>scenePhase는 저장 시점만 결정하고, 실제 저장 구조는 Repository와 DTO가 맡게 했습니다.</b>
+            </div>
+            <div class="code-example-grid">
+              <div class="code-example-card">
+                <p>App Root: 앱 상태 변화에서 저장 트리거</p>
+                <pre class="code compact"><code><span class="x-keyword">@Environment</span>(\.scenePhase)
+<span class="x-keyword">private var</span> scenePhase
+
+.<span class="x-func">onAppear</span> {
+  <span class="x-func">loadUser</span>()
+}
+.<span class="x-func">onChange</span>(of: scenePhase) { _, newPhase <span class="x-keyword">in</span>
+  <span class="x-keyword">if</span> newPhase == .background ||
+     newPhase == .inactive {
+    <span class="x-func">saveUser</span>()
+  }
+}
+
+<span class="x-keyword">func</span> <span class="x-func">saveUser</span>() {
+  <span class="x-keyword">guard let</span> user = user <span class="x-keyword">else</span> { <span class="x-keyword">return</span> }
+  <span class="x-type">Task</span> {
+    <span class="x-keyword">try await</span> userRepository.<span class="x-func">save</span>(user)
+  }
+}</code></pre>
+              </div>
+              <div class="code-example-card">
+                <p>Repository / DTO: 사용자 진행 상태만 저장</p>
+                <pre class="code compact"><code><span class="x-keyword">func</span> <span class="x-func">save</span>(_ user: <span class="x-type">User</span>) async throws {
+  <span class="x-keyword">let</span> userDTO = <span class="x-type">UserDTO</span>(
+    id: user.id,
+    nickname: user.nickname,
+    career: <span class="x-type">CareerDTO</span>(from: user.career),
+    wallet: <span class="x-type">WalletDTO</span>(from: user.wallet),
+    inventory: <span class="x-type">InventoryDTO</span>(from: user.inventory),
+    record: <span class="x-type">RecordDTO</span>(from: user.record),
+    skills: user.skills.<span class="x-func">map</span> { <span class="x-type">SkillDTO</span>(from: $0) }
+  )
+
+  <span class="x-keyword">let</span> url = fileURL
+  <span class="x-keyword">let</span> data = <span class="x-keyword">try</span> <span class="x-type">JSONEncoder</span>().<span class="x-func">encode</span>(userDTO)
+
+  <span class="x-type">Task</span>.<span class="x-func">detached</span> {
+    <span class="x-keyword">try</span> data.<span class="x-func">write</span>(to: url, options: [.atomic])
+  }
+}</code></pre>
+              </div>
+              <div class="code-example-card">
+                <p>RecordDTO: 미션 정의와 진행 상태 분리</p>
+                <pre class="code compact"><code><span class="x-keyword">func</span> <span class="x-func">toRecord</span>() -&gt; <span class="x-type">Record</span> {
+  <span class="x-keyword">let</span> record = <span class="x-type">Record</span>(
+    missionSystem: <span class="x-type">MissionSystem</span>(
+      missions: <span class="x-type">MissionFactory</span>.<span class="x-func">createAllMissions</span>()
+    )
+  )
+
+  record.totalTapCount = totalTapCount
+  record.stackingSuccessCount = stackingSuccessCount
+  record.stackConsecutiveSuccess = stackConsecutiveSuccess
+
+  <span class="x-keyword">for</span> missionState <span class="x-keyword">in</span> missionStates {
+    <span class="x-keyword">if let</span> mission = record.missionSystem.missions
+      .<span class="x-func">first</span>(where: { $0.id == missionState.id }) {
+      mission.currentValue = missionState.currentValue
+      mission.state = missionState.state.<span class="x-func">toMissionState</span>()
+    }
+  }
+
+  <span class="x-keyword">return</span> record
+}</code></pre>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <span>최범수 - iOS Developer Portfolio</span>
+  </footer>
+</body>
+</html>
